@@ -1,0 +1,4 @@
+baseURL = 'https://blog.heehoposting.xyz'
+languageCode = 'en-us'
+title = "Jackson's Blog"
+theme = 'ananke'

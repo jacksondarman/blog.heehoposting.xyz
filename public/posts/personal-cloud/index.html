@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Jackson&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="&#43;&#43;&#43;
+title = &lsquo;Personal Cloud&rsquo;
+date = 2024-10-08T11:07:20-04:00
+draft = true
+&#43;&#43;&#43;
+A Guide on Setting Up your Own File Server
+Introduction
+Setting up a server might sound daunting, especially when you hear terms like &ldquo;containerization,&rdquo; &ldquo;Kubernetes/K8s,&rdquo; and &ldquo;Docker.&rdquo; But don’t worry—owning and maintaining a server is easier than it sounds. In this guide, I’ll show you how to set up a fully functional Dropbox replacement using Nextcloud.
+Disclaimer: This guide assumes that you have basic knowledge of how to use Linux terminal commands. If you need some help, here&rsquo;s a quick cheatsheet.">
+    <meta name="generator" content="Hugo 0.135.0">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/personal-cloud/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/personal-cloud/">
+  <meta property="og:site_name" content="Jackson&#39;s Blog">
+  <meta property="og:title" content="Jackson&#39;s Blog">
+  <meta property="og:description" content="&#43;&#43;&#43; title = ‘Personal Cloud’ date = 2024-10-08T11:07:20-04:00 draft = true &#43;&#43;&#43;
+A Guide on Setting Up your Own File Server Introduction Setting up a server might sound daunting, especially when you hear terms like “containerization,” “Kubernetes/K8s,” and “Docker.” But don’t worry—owning and maintaining a server is easier than it sounds. In this guide, I’ll show you how to set up a fully functional Dropbox replacement using Nextcloud.
+Disclaimer: This guide assumes that you have basic knowledge of how to use Linux terminal commands. If you need some help, here’s a quick cheatsheet.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+
+  <meta itemprop="name" content="Jackson&#39;s Blog">
+  <meta itemprop="description" content="&#43;&#43;&#43; title = ‘Personal Cloud’ date = 2024-10-08T11:07:20-04:00 draft = true &#43;&#43;&#43;
+A Guide on Setting Up your Own File Server Introduction Setting up a server might sound daunting, especially when you hear terms like “containerization,” “Kubernetes/K8s,” and “Docker.” But don’t worry—owning and maintaining a server is easier than it sounds. In this guide, I’ll show you how to set up a fully functional Dropbox replacement using Nextcloud.
+Disclaimer: This guide assumes that you have basic knowledge of how to use Linux terminal commands. If you need some help, here’s a quick cheatsheet.">
+  <meta itemprop="wordCount" content="1722">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Jackson&#39;s Blog">
+  <meta name="twitter:description" content="&#43;&#43;&#43; title = ‘Personal Cloud’ date = 2024-10-08T11:07:20-04:00 draft = true &#43;&#43;&#43;
+A Guide on Setting Up your Own File Server Introduction Setting up a server might sound daunting, especially when you hear terms like “containerization,” “Kubernetes/K8s,” and “Docker.” But don’t worry—owning and maintaining a server is easier than it sounds. In this guide, I’ll show you how to set up a fully functional Dropbox replacement using Nextcloud.
+Disclaimer: This guide assumes that you have basic knowledge of how to use Linux terminal commands. If you need some help, here’s a quick cheatsheet.">
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        Jackson&#39;s Blog
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+<div class="ananke-socials">
+  
+</div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside>
+      
+
+
+
+
+
+
+
+
+
+
+  <div id="sharing" class="mt3 ananke-socials">
+    
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1"></h1>
+      
+      
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>+++
+title = &lsquo;Personal Cloud&rsquo;
+date = 2024-10-08T11:07:20-04:00
+draft = true
++++</p>
+<h1 id="a-guide-on-setting-up-your-own-file-server">A Guide on Setting Up your Own File Server</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Setting up a server might sound daunting, especially when you hear terms like &ldquo;containerization,&rdquo; &ldquo;Kubernetes/K8s,&rdquo; and &ldquo;Docker.&rdquo; But don’t worry—owning and maintaining a server is easier than it sounds. In this guide, I’ll show you how to set up a fully functional Dropbox replacement using <strong>Nextcloud</strong>.</p>
+<p><em>Disclaimer</em>: This guide assumes that you have basic knowledge of how to use Linux terminal commands. If you need some help, <a href="https://www.geeksforgeeks.org/linux-commands-cheat-sheet/">here&rsquo;s a quick cheatsheet</a>.</p>
+<h2 id="preliminary-information">Preliminary Information</h2>
+<h3 id="what-is-nextcloud">What is Nextcloud?</h3>
+<p>Nextcloud is a powerful, free, and open-source solution for file storage and sharing, often used as a Google Drive or Dropbox replacement. If you want more control over your data without relying on big tech, Nextcloud is an excellent option.</p>
+<p>Nextcloud can also be extended with various plugins from its marketplace. You can explore these <a href="https://github.com/andreasjacobsen93/awesome-nextcloud">here</a>. For now, I’ll focus on the file storage and sharing features, but feel free to explore—it’s your file server, after all!</p>
+<h3 id="servers-what-are-they-and-how-do-i-get-one">Servers: What are they and how do I get one?</h3>
+<p>To host something like Nextcloud, you need a server. But where do you start?</p>
+<p>The key point: A server is defined by its role, not its hardware. It&rsquo;s simply a computer designed to serve data to a client. This means almost any computer you own can act as a server, whether it&rsquo;s a dedicated server from eBay<a href="https://www.ebay.com/itm/115818567694?itmmeta=01J9PBEQ8E51X5QEEGDDVEC1DC&amp;hash=item1af753180e:g:HgEAAOSwQh5k1YNe&amp;itmprp=enc%3AAQAJAAAA4Mxmj%2BiGvOveHXEBClPb29gJukUG%2FflZbxcv0TMCvxAl3XvyZfd%2BRo30M37skgqzsM2mZYi0QZHgXQlf9VFpFBYSmXpvEPbZIcUQRUIpbYaRSAHxHn3uukGQlOosxVyFYhGXR5F1%2F%2BS%2FoGyA0XjJMhQJ4%2Fd8MrxbuIbTBVNQV0qHE9Iz9kcnGUPYR7uGM1gzniiYLzHVMWZoJRg6LyB%2B8HpGUcMLVzDRPpKrV2YcLth2VyvknQxObDRD30RUsXPGKo7isTbmX0H6p2bzLF9e3975EtUDzqXkAD7VtlA5mVlp%7Ctkp%3ABFBMqPS6y81k">like this one</a>, or an old laptop gathering dust in your closet.</p>
+<p>If you don’t have hardware ready, you can rent server space through companies like <strong>Digital Ocean</strong>, which offers a special deal for students through GitHub Education in which you get $100 of free credit. Regardless of the hardware or service, the following steps will be the same.</p>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="installing-your-operating-system">Installing your Operating System</h3>
+<p>Once you have your hardware, you need to pick an operating system to use as the base of your server. For the sake of this guide, I will recommend the latest LTS version of <a href="https://ubuntu.com/download/server">Ubuntu Server</a>, but realistically, most of the steps outlined here can work with any Linux distribution. Be sure to check the documentation of the solutions I&rsquo;ve listed here for your specific usecase if you choose to use another distribution.</p>
+<p>If you&rsquo;re using your own hardware, you need to create a bootable disk from the Ubuntu ISO. I recommend using something like <a href="https://etcher.balena.io/">Balena Etcher</a>.</p>
+<h3 id="connecting-to-your-server-remotely">Connecting to your server remotely</h3>
+<p>Now that you have Ubuntu server up and running, you should attempt to connect to it remotely using SSH. If you&rsquo;re running your server locally, type <code>ip a</code> into your server&rsquo;s terminal to find it&rsquo;s internal IP address (it should start with something like <code>inet XXX.XXX.XXX.XXX</code>, and not be the <code>lo</code> (loopback) interface).</p>
+<p>If you opted to use a VPS, use the public IP address that they gave to you.</p>
+<p>To connect to the server using SSH, input the following into your terminal from another machine.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh username@ip-address
+</span></span></code></pre></div><p>You should now be successfully connected to your server using SSH.</p>
+<p><em>Pro-tip: I highly recommend following the steps highlighted by DigitalOcean <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu">here</a> in order to ensure that your server is following security best practices. At the very least, you should not be using the root user to connect to your server.</em></p>
+<h3 id="installing-docker-and-docker-compose">Installing Docker and Docker Compose</h3>
+<p>In order to run Nextcloud, we&rsquo;re going to be using a containerization solution called Docker. Essentially, Docker isolates services that you run on your server into something called &ldquo;containers&rdquo;, that basically act like their own mini-computers within your server. It&rsquo;s kind of like you have several smaller computers within your large server (make no mistake though, these containers can be very powerful).</p>
+<p>In order to streamline running these Docker containers, we&rsquo;re going to use something called Docker Compose. Docker Compose allows you to define settings for the containers you want to run in a single config file, allowing for much easier deployment.</p>
+<p>First, set up Docker&rsquo;s <code>apt</code> repository.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Add Docker&#39;s official GPG key:</span>
+</span></span><span style="display:flex;"><span>sudo apt-get update
+</span></span><span style="display:flex;"><span>sudo apt-get install ca-certificates curl gnupg
+</span></span><span style="display:flex;"><span>sudo install -m <span style="color:#ae81ff">0755</span> -d /etc/apt/keyrings
+</span></span><span style="display:flex;"><span>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+</span></span><span style="display:flex;"><span>sudo chmod a+r /etc/apt/keyrings/docker.gpg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add the repository to Apt sources:</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  <span style="color:#e6db74">&#34;deb [arch=&#34;</span><span style="color:#66d9ef">$(</span>dpkg --print-architecture<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  &#34;</span><span style="color:#66d9ef">$(</span>. /etc/os-release <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;</span>$VERSION_CODENAME<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34; stable&#34;</span> | <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></span><span style="display:flex;"><span>sudo apt-get update
+</span></span></code></pre></div><p>Then, install the latest version of Docker and Docker Compose.</p>
+<pre tabindex="0"><code>sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre><p>Finally, run these commands to ensure that everything is installed correctly.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker -v <span style="color:#75715e">#Checks the Docker version. If you see an output here, you installed it correctly.</span>
+</span></span><span style="display:flex;"><span>docker compose <span style="color:#75715e">#Checks to see if Docker Compose is installed. If it is, you&#39;ll see output.</span>
+</span></span><span style="display:flex;"><span>sudo docker run hello-world <span style="color:#75715e">#Spins up a sample &#34;Hello world&#34; Docker container to verify the runtime works.</span>
+</span></span></code></pre></div><p>By default, Docker is only runnable by the root user (or by using <code>sudo</code>). If this is not desired behavior for your environment, add your user account to the Docker group.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG docker $USER
+</span></span></code></pre></div><p>Once everything looks good, you&rsquo;re free to move on through the guide!</p>
+<h2 id="setting-up-the-nextcloud-container">Setting Up the Nextcloud Container</h2>
+<p>We will be using Nextcloud&rsquo;s AIO image in order to spin up everything we need in one file. With Nextcloud AIO you get:</p>
+<ul>
+<li>Nextcloud&rsquo;s base features, including file storage and file transfer.</li>
+<li>Nextcloud Office, a replacement to Google Office/O365.</li>
+<li>Nextcloud Talk, a voice chat solution to replace something like Zoom.</li>
+</ul>
+<p>Create a directory called <code>nextcloud</code> to store your config files, and then make a <code>docker-compose.yml</code> file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir nextcloud <span style="color:#f92672">&amp;&amp;</span> cd nextcloud
+</span></span><span style="display:flex;"><span>touch docker-compose.yml
+</span></span></code></pre></div><p>Here is a sample <code>docker-compose.yml</code> to get you started, directly from Nextcloud&rsquo;s GitHub:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nextcloud-aio-mastercontainer</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nextcloud/all-in-one:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">init</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">nextcloud-aio-mastercontainer</span> <span style="color:#75715e"># This line is not allowed to be changed as otherwise AIO will not work correctly</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">nextcloud_aio_mastercontainer:/mnt/docker-aio-config</span> <span style="color:#75715e"># This line is not allowed to be changed as otherwise the built-in backup solution will not work</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">/var/run/docker.sock:/var/run/docker.sock:ro</span> <span style="color:#75715e"># May be changed on macOS, Windows or docker rootless. See the applicable documentation. If adjusting, don&#39;t forget to also set &#39;WATCHTOWER_DOCKER_SOCKET_PATH&#39;!</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">network_mode</span>: <span style="color:#ae81ff">bridge</span> <span style="color:#75715e"># add to the same network as docker run would do</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">80</span>:<span style="color:#ae81ff">80</span> <span style="color:#75715e"># Can be removed when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">8080</span>:<span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">8443</span>:<span style="color:#ae81ff">8443</span> <span style="color:#75715e"># Can be removed when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># environment: # Is needed when using any of the options below</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># AIO_DISABLE_BACKUP_SECTION: false # Setting this to true allows to hide the backup section in the AIO interface. See https://github.com/nextcloud/all-in-one#how-to-disable-the-backup-section</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># APACHE_PORT: 11000 # Is needed when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else). See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># APACHE_IP_BINDING: 127.0.0.1 # Should be set when running behind a web server or reverse proxy (like Apache, Nginx, Caddy, Cloudflare Tunnel and else) that is running on the same host. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># BORG_RETENTION_POLICY: --keep-within=7d --keep-weekly=4 --keep-monthly=6 # Allows to adjust borgs retention policy. See https://github.com/nextcloud/all-in-one#how-to-adjust-borgs-retention-policy</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># COLLABORA_SECCOMP_DISABLED: false # Setting this to true allows to disable Collabora&#39;s Seccomp feature. See https://github.com/nextcloud/all-in-one#how-to-disable-collaboras-seccomp-feature</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_DATADIR: /mnt/ncdata # Allows to set the host directory for Nextcloud&#39;s datadir. ⚠️⚠️⚠️ Warning: do not set or adjust this value after the initial Nextcloud installation is done! See https://github.com/nextcloud/all-in-one#how-to-change-the-default-location-of-nextclouds-datadir</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_MOUNT: /mnt/ # Allows the Nextcloud container to access the chosen directory on the host. See https://github.com/nextcloud/all-in-one#how-to-allow-the-nextcloud-container-to-access-directories-on-the-host</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_UPLOAD_LIMIT: 10G # Can be adjusted if you need more. See https://github.com/nextcloud/all-in-one#how-to-adjust-the-upload-limit-for-nextcloud</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_MAX_TIME: 3600 # Can be adjusted if you need more. See https://github.com/nextcloud/all-in-one#how-to-adjust-the-max-execution-time-for-nextcloud</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_MEMORY_LIMIT: 512M # Can be adjusted if you need more. See https://github.com/nextcloud/all-in-one#how-to-adjust-the-php-memory-limit-for-nextcloud</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_TRUSTED_CACERTS_DIR: /path/to/my/cacerts # CA certificates in this directory will be trusted by the OS of the nexcloud container (Useful e.g. for LDAPS) See See https://github.com/nextcloud/all-in-one#how-to-trust-user-defined-certification-authorities-ca</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_STARTUP_APPS: deck twofactor_totp tasks calendar contacts notes # Allows to modify the Nextcloud apps that are installed on starting AIO the first time. See https://github.com/nextcloud/all-in-one#how-to-change-the-nextcloud-apps-that-are-installed-on-the-first-startup</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_ADDITIONAL_APKS: imagemagick # This allows to add additional packages to the Nextcloud container permanently. Default is imagemagick but can be overwritten by modifying this value. See https://github.com/nextcloud/all-in-one#how-to-add-os-packages-permanently-to-the-nextcloud-container</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_ADDITIONAL_PHP_EXTENSIONS: imagick # This allows to add additional php extensions to the Nextcloud container permanently. Default is imagick but can be overwritten by modifying this value. See https://github.com/nextcloud/all-in-one#how-to-add-php-extensions-permanently-to-the-nextcloud-container</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_ENABLE_DRI_DEVICE: true # This allows to enable the /dev/dri device in the Nextcloud container. ⚠️⚠️⚠️ Warning: this only works if the &#39;/dev/dri&#39; device is present on the host! If it should not exist on your host, don&#39;t set this to true as otherwise the Nextcloud container will fail to start! See https://github.com/nextcloud/all-in-one#how-to-enable-hardware-transcoding-for-nextcloud</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># NEXTCLOUD_KEEP_DISABLED_APPS: false # Setting this to true will keep Nextcloud apps that are disabled in the AIO interface and not uninstall them if they should be installed. See https://github.com/nextcloud/all-in-one#how-to-keep-disabled-apps</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># TALK_PORT: 3478 # This allows to adjust the port that the talk container is using. See https://github.com/nextcloud/all-in-one#how-to-adjust-the-talk-port</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># WATCHTOWER_DOCKER_SOCKET_PATH: /var/run/docker.sock # Needs to be specified if the docker socket on the host is not located in the default &#39;/var/run/docker.sock&#39;. Otherwise mastercontainer updates will fail. For macos it needs to be &#39;/var/run/docker.sock&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># security_opt: [&#34;label:disable&#34;] # Is needed when using SELinux</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># # Optional: Caddy reverse proxy. See https://github.com/nextcloud/all-in-one/blob/main/reverse-proxy.md</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># # You can find further examples here: https://github.com/nextcloud/all-in-one/discussions/588</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># caddy:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   image: caddy:alpine</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   restart: always</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   container_name: caddy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   volumes:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - ./Caddyfile:/etc/caddy/Caddyfile</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - ./certs:/certs</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - ./config:/config</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - ./data:/data</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#     - ./sites:/srv</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#   network_mode: &#34;host&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">volumes</span>: <span style="color:#75715e"># If you want to store the data on a different drive, see https://github.com/nextcloud/all-in-one#how-to-store-the-filesinstallation-on-a-separate-drive</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nextcloud_aio_mastercontainer</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nextcloud_aio_mastercontainer</span> <span style="color:#75715e"># This line is not allowed to be changed as otherwise the built-in backup solution will not work</span>
+</span></span></code></pre></div><h3 id="a-brief-word-on-port-forwarding">A Brief Word on Port Forwarding</h3>
+<p>Port forwarding is a very messy topic to explain. Essentially, you are exposing ports on your home network so that you can access your Nextcloud instance remotely (which is desired behavior for a cloud environment). I will not be going into depth on how to expose ports to the Internet, as that varies so wildly depending on what router you have.</p>
+<p>In general, you want to have the following ports exposed, or behind a reverse proxy (preferred).</p>
+<pre tabindex="0"><code># These ports are necessary to connect to the web portal
+80/TCP, 80/UDP 
+8443/TCP, 8443/UDP
+</code></pre><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://localhost:1313/" >
+    &copy;  Jackson's Blog 2024 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+</div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Jackson&#39;s Blog</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Jackson&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 08 Oct 2024 11:07:20 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Personal Cloud</title>
+      <link>http://localhost:1313/posts/personal-cloud/</link>
+      <pubDate>Tue, 08 Oct 2024 11:07:20 -0400</pubDate>
+      <guid>http://localhost:1313/posts/personal-cloud/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Setting up a server can sound like a pretty daunting task. You may hear things like &amp;ldquo;containerization&amp;rdquo;, &amp;ldquo;Kubernetes/K8s&amp;rdquo;, and &amp;ldquo;Docker&amp;rdquo;, and immediately think that owning and maintaining a server is beyond your paygrade. Well, I&amp;rsquo;m here to tell you that it&amp;rsquo;s not, and to prove that I will get you from nothing to a fully functional Dropbox replacement with Nextcloud.&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;Disclaimer&lt;/em&gt;: This guide assumes that you have basic knowledge of how to use Linux terminal commands. If you need some help, &lt;a href=&#34;https://www.geeksforgeeks.org/linux-commands-cheat-sheet/&#34;&gt;here&amp;rsquo;s a quick cheatsheet&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>My First Post</title>
+      <link>http://localhost:1313/posts/my-first-post/</link>
+      <pubDate>Tue, 08 Oct 2024 11:03:07 -0400</pubDate>
+      <guid>http://localhost:1313/posts/my-first-post/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;This is &lt;strong&gt;bold&lt;/strong&gt; text, and this is &lt;em&gt;emphasized&lt;/em&gt; text.&lt;/p&gt;&#xA;&lt;p&gt;Visit &lt;a href=&#34;https://heehoposting.xyz&#34;&gt;Heehoposting&lt;/a&gt;!&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
